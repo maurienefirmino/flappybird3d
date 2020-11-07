@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Canos.gd" type="Script" id=1]
+
+[sub_resource type="CylinderMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.243137, 0.960784, 0.0705882, 1 )
+
+[sub_resource type="CylinderMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.184314, 0.423529, 0.266667, 1 )
+
+[sub_resource type="CylinderMesh" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.94902, 0.956863, 0.968627, 1 )
+emission_enabled = true
+emission = Color( 0.729412, 0.811765, 0.886275, 1 )
+emission_energy = 2.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="CylinderShape" id=3]
+radius = 1.03477
+height = 9.96199
+
+[node name="Canos" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Cano1" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.37, 0 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Cano1"]
+transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 1 )
+material = SubResource( 2 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Cano1"]
+transform = Transform( 1.4, 0, 0, 0, 0.5, 0, 0, 0, 1.4, 0, 4.44487, 0 )
+mesh = SubResource( 4 )
+material = SubResource( 5 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="Cano1"]
+transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 4.5257, 0 )
+operation = 2
+mesh = SubResource( 6 )
+material = SubResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Cano1"]
+shape = SubResource( 3 )
+
+[node name="Cano2" type="Area" parent="."]
+transform = Transform( -1, 3.25841e-07, 0, -3.25841e-07, -1, 0, 0, 0, 1, 0, 7.37, 0 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Cano2"]
+transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 1 )
+material = SubResource( 2 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Cano2"]
+transform = Transform( 1.4, 0, 0, 0, 0.5, 0, 0, 0, 1.4, 0, 4.44487, 0 )
+mesh = SubResource( 4 )
+material = SubResource( 5 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="Cano2"]
+transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 4.5257, 0 )
+operation = 2
+mesh = SubResource( 6 )
+material = SubResource( 7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Cano2"]
+shape = SubResource( 3 )
+
+[node name="deletac" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+[connection signal="body_entered" from="Cano1" to="." method="colidiu"]
+[connection signal="body_entered" from="Cano2" to="." method="colidiu"]
+[connection signal="timeout" from="deletac" to="." method="_on_deletac_timeout"]
